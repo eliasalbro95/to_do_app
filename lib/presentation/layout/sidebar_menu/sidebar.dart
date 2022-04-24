@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/logic/cubit/main_cubit/main_cubit.dart';
-import 'package:to_do_app/presentation/styles/theme/app_themes.dart';
 
 import '../../../logic/cubit/theme/theme_cubit.dart';
 import '../../../shared/components/constants.dart';
@@ -11,7 +10,7 @@ class SideBarMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainCubit = MainCubit.get(context);
+    // final mainCubit = MainCubit.get(context);
     final themeCubit = ThemeCubit.get(context);
     return Drawer(
       child: ListView(
