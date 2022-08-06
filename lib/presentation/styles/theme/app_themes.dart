@@ -4,8 +4,8 @@ import 'package:flutter/scheduler.dart';
 import '../colors.dart';
 
 class AppTheme {
-  static Brightness get currentSystemBrightness =>
-      SchedulerBinding.instance!.window.platformBrightness;
+  // static Brightness get currentSystemBrightness =>
+  //     SchedulerBinding.instance.window.platformBrightness;
 
   static final lightTheme = ThemeData(
       brightness: Brightness.light,

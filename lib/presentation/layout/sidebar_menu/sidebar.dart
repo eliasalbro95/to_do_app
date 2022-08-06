@@ -17,17 +17,29 @@ class SideBarMenu extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              "Todo App",
+              // TODO: Add the firebase name
+              "User Name",
               style: TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.w500,
                   color: Theme.of(context).textTheme.headline3!.color),
             ),
-            accountEmail: const Text(""),
-            currentAccountPicture: Image.asset(
-              'assets/logo/logo3.png',
-              height: 45.0,
-              width: 45.0,
+            // TODO: Add the firebase email
+            accountEmail: const Text("email",),
+            // TODO: Add the firebase Picture
+            currentAccountPicture: Container(
+              child: ClipRRect(
+                child: Image.asset(
+                  "assets/profilePic/profile_icon_white.png",
+                  height: 45.0,
+                  width: 45.0,
+                ),
+                borderRadius: BorderRadius.circular(45,),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(45),
+                border: Border.all(color: Colors.white,width: 1.2)
+              ),
             ),
             decoration: const BoxDecoration(
               gradient: LinearGradient(

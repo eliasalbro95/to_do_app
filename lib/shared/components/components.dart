@@ -9,7 +9,7 @@ Widget defaultTextField(
         {required TextEditingController controller,
         required String? label,
         required String? Function(String?) validator,
-        required String prefix,
+        IconData? prefix,
         VoidCallback? onTap,
         required BuildContext context}) =>
     TextFormField(
@@ -22,6 +22,7 @@ Widget defaultTextField(
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
             labelText: label,
+            prefixIcon: Icon(prefix,color: Theme.of(context).iconTheme.color,),
             labelStyle: Theme.of(context).textTheme.headline2,
             focusedBorder: UnderlineInputBorder(
                 borderSide:

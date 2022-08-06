@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/logic/cubit/main_cubit/main_cubit.dart';
 import 'package:to_do_app/presentation/layout/sidebar_menu/sidebar.dart';
+import 'package:to_do_app/shared/components/responsive.dart';
 import '../../shared/components/constants.dart';
 import '../styles/colors.dart';
 
@@ -29,6 +29,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     final mainCubit = MainCubit.get(context);
+    ResponsiveScreen responsiveScreen = ResponsiveScreen(context);
     return BlocConsumer<MainCubit, MainState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -41,29 +42,42 @@ class _HomeLayoutState extends State<HomeLayout> {
             appBar: AppBar(
               centerTitle: true,
               toolbarHeight: 90.0,
-              leadingWidth: 60.0,
+              leadingWidth: responsiveScreen.width*.146,
+              // TODO: Add the firebase Picture
               leading: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
-                child: Image.asset(
-                  'assets/logo/logo3.png',
-                  height: 45.0,
-                  width: 45.0,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pushNamed('/profile');
+                  },
+                  // TODO: Go back to make it change if there is profile pic in the account
+                  child: CircleAvatar(
+                    radius: 30,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                        child: Image.asset(
+                            "assets/profilePic/profile_icon_white.png",
+                            scale: 10)),
+                  ),
                 ),
               ),
               title: Text(
-                "To Do App",
+                "Do it Simply",
                 style: Theme.of(context).textTheme.headline1,
               ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 10.0),
                   child: IconButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      scaffoldKey.currentState!.openEndDrawer();
-                    },
-                    icon: Icon(Icons.menu_rounded,size: 45.0,color: Theme.of(context).iconTheme.color,)
-                  ),
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        // scaffoldKey.currentState!.openEndDrawer();
+                      },
+                      icon: Icon(
+                        Icons.notifications_outlined,
+                        size: 30.0,
+                        color: Theme.of(context).iconTheme.color,
+                      )),
                 )
               ],
               elevation: 0,
@@ -97,7 +111,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                       ),
                     ),
                     child: const Icon(
-                      Icons.add_rounded,color: Colors.white,
+                      Icons.add_rounded,
+                      color: Colors.white,
                       size: 50.0,
                     ),
                   ),

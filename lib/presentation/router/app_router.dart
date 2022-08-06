@@ -1,15 +1,26 @@
+// import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/presentation/modules/add_screen/create_new_task_screen.dart';
+import 'package:to_do_app/presentation/modules/profile_screen/profile_screen.dart';
 import 'package:to_do_app/shared/components/constants.dart';
 import '../layout/home_layout.dart';
 import '../modules/edit_screen/edit_task_screen.dart';
+import '../modules/login_screen/login_screen.dart';
+import '../modules/signup_screen/signup_screen.dart';
+
 
 class AppRouter {
   static Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => const HomeLayout());
+        return MaterialPageRoute(
+          builder: (_) => HomeLayout()
+        );
+      case '/login':
+        return MaterialPageRoute(builder: (_) => LoginScreen());
+      case '/signup':
+        return MaterialPageRoute(builder: (_) => SignupScreen());
       case '/add':
         return MaterialPageRoute(builder: (_) => const CreateNewTaskScreen());
       case '/edit':
@@ -27,6 +38,8 @@ class AppRouter {
             colorPicked: editTasks[0].color,
           );
         });
+      case '/profile':
+        return MaterialPageRoute(builder: (_)=>const ProfileScreen());
       default:
         return null;
     }
