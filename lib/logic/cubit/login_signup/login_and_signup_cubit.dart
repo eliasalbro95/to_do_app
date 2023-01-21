@@ -61,6 +61,7 @@ class LoginAndSignupCubit extends Cubit<LoginAndSignupState> {
     }
     return 'done';
   }
+  // /res
 
   Future<String> loginButton(
       {required String email, required String password}) async {
