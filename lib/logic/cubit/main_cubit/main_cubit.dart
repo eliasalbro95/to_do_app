@@ -39,8 +39,6 @@ class MainCubit extends Cubit<MainState> {
     itsAdd ? itsAdd = false : null;
     addCategory = pickedCategory;
     addPickedColor = color;
-    print(addCategory);
-    print(addPickedColor);
     if (isPickedAdd == false) {
       isPickedAdd = !isPickedAdd;
     } else {

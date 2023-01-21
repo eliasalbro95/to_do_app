@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:to_do_app/logic/cubit/main_cubit/main_cubit.dart';
 import 'package:to_do_app/shared/components/constants.dart';
 import '../../../shared/components/components.dart';
+import '../../../shared/components/responsive.dart';
 import '../../styles/colors.dart';
 
 class CreateNewTaskScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         final mainCubit = MainCubit.get(context);
+        ResponsiveScreen responsiveScreen = ResponsiveScreen(context);
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -78,6 +80,7 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
                           }
                           return null;
                         },
+                        prefix: Icons.title_outlined,
                         label: 'Title',
                       ),
                       const SizedBox(
@@ -103,6 +106,7 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
                             timeController.text = value!.format(context);
                           });
                         },
+                        prefix: Icons.access_time_outlined,
                         label: 'Time',
                       ),
                       const SizedBox(
@@ -120,8 +124,10 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
                         onTap: () {
                           showDatePicker(
                                   builder: (context, Widget? child) {
-                                    var brightness = Theme.of(context).brightness;
-                                    bool isLight = brightness == Brightness.light;
+                                    var brightness =
+                                        Theme.of(context).brightness;
+                                    bool isLight =
+                                        brightness == Brightness.light;
                                     return Theme(
                                       data: isLight
                                           ? ThemeData.light().copyWith(
@@ -132,23 +138,28 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
                                                 surface: dark,
                                                 onSurface: dark,
                                               ),
-                                              buttonTheme: const ButtonThemeData(
-                                                textTheme: ButtonTextTheme.accent,
+                                              buttonTheme:
+                                                  const ButtonThemeData(
+                                                textTheme:
+                                                    ButtonTextTheme.accent,
                                               ),
                                               dialogBackgroundColor: offWhite,
                                             )
                                           : ThemeData.dark().copyWith(
                                               primaryColor:
                                                   darkThemeBackgroundColor,
-                                              colorScheme: const ColorScheme.dark(
+                                              colorScheme: const ColorScheme
+                                                      .dark(
                                                   primary: Colors.white,
                                                   onPrimary:
                                                       darkThemeBackgroundColor,
                                                   surface:
                                                       darkThemeBackgroundColor,
                                                   onSurface: Colors.white),
-                                              buttonTheme: const ButtonThemeData(
-                                                textTheme: ButtonTextTheme.accent,
+                                              buttonTheme:
+                                                  const ButtonThemeData(
+                                                textTheme:
+                                                    ButtonTextTheme.accent,
                                               ),
                                               textButtonTheme: TextButtonThemeData(
                                                   style: TextButton.styleFrom(
@@ -165,8 +176,8 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
                                                             style: BorderStyle
                                                                 .solid),
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                2),
+                                                            BorderRadius
+                                                                .circular(2),
                                                       ))),
                                               dialogBackgroundColor:
                                                   darkThemeSecondColor,
@@ -183,6 +194,7 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
                                 DateFormat.yMMMd().format(value!);
                           });
                         },
+                        prefix: Icons.date_range_outlined,
                         label: 'Date',
                       ),
                     ],
@@ -280,6 +292,9 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.center,
                   ),
+                  SizedBox(
+                    height: responsiveScreen.height * .08,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                     child: GestureDetector(
@@ -288,22 +303,14 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
                         height: 60.0,
                         child: Center(
                             child: Text(
-                              "Add",
-                              style: TextStyle(
-                                fontSize: 24.0,
-                                color: Theme.of(context).textTheme.headline3!.color,
-                              ),
-                            )),
+                          "Add",
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            color: Theme.of(context).textTheme.headline3!.color,
+                          ),
+                        )),
                         decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Colors.deepPurple, Colors.greenAccent],
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              // begin: const FractionalOffset(0.0, 1.0),
-                              // end: const FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 5.0],
-                              tileMode: TileMode.clamp,
-                            ),
+                            gradient: gradientButton(),
                             borderRadius: BorderRadius.circular(20)),
                       ),
                       onTap: () async {
@@ -328,7 +335,6 @@ class _CreateNewTaskScreenState extends State<CreateNewTaskScreen> {
               ),
             ),
           ),
-
         );
       },
     );

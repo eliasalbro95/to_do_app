@@ -3,35 +3,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:to_do_app/data/models/tasks/tasks_model.dart';
 import 'package:to_do_app/logic/cubit/main_cubit/main_cubit.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 import 'constants.dart';
 
-Widget defaultTextField(
-        {required TextEditingController controller,
-        required String? label,
-        required String? Function(String?) validator,
-        IconData? prefix,
-        VoidCallback? onTap,
-        required BuildContext context}) =>
+Widget defaultTextField({required TextEditingController controller,
+  required String? label,
+  required String? Function(String?) validator,
+  IconData? prefix,
+  VoidCallback? onTap,
+  required BuildContext context}) =>
     TextFormField(
         controller: controller,
         keyboardType: TextInputType.text,
         validator: validator,
         onTap: onTap,
         textAlignVertical: TextAlignVertical.center,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme
+            .of(context)
+            .textTheme
+            .bodyText1,
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
             labelText: label,
-            prefixIcon: Icon(prefix,color: Theme.of(context).iconTheme.color,),
-            labelStyle: Theme.of(context).textTheme.headline2,
+            prefixIcon: Icon(prefix, color: Theme
+                .of(context)
+                .iconTheme
+                .color,),
+            labelStyle: Theme
+                .of(context)
+                .textTheme
+                .headline2,
             focusedBorder: UnderlineInputBorder(
                 borderSide:
-                    BorderSide(color: Theme.of(context).iconTheme.color!))));
+                BorderSide(color: Theme
+                    .of(context)
+                    .iconTheme
+                    .color!))));
 
-Widget taskContainer(
-    {required TaskModel model,
-    required int index,
-    required BuildContext context}) {
+Widget taskContainer({required TaskModel model,
+  required int index,
+  required BuildContext context}) {
   var tempModel = model.category.toString().split(".");
   var tempCategory = EnumToString.fromString(
       categoryPicked.values, model.category.substring(15));
@@ -43,29 +55,33 @@ Widget taskContainer(
         model.status == "done"
             ? Container()
             : SlidableAction(
-                onPressed: (context) {
-                  MainCubit.get(context).updateDatabase(
-                      id: model.id,
-                      title: model.title,
-                      time: model.time,
-                      date: model.date,
-                      description: model.description,
-                      category: tempCategory!,
-                      color: model.color,
-                      status: "done");
-                },
-                backgroundColor: Color(model.color),
-                foregroundColor: Theme.of(context).primaryColor,
-                icon: Icons.check_rounded,
-                label: "Completed",
-              ),
+          onPressed: (context) {
+            MainCubit.get(context).updateDatabase(
+                id: model.id,
+                title: model.title,
+                time: model.time,
+                date: model.date,
+                description: model.description,
+                category: tempCategory!,
+                color: model.color,
+                status: "done");
+          },
+          backgroundColor: Color(model.color),
+          foregroundColor: Theme
+              .of(context)
+              .primaryColor,
+          icon: Icons.check_rounded,
+          label: "Completed",
+        ),
         SlidableAction(
           onPressed: (context) {
             MainCubit.get(context).getSpecificDataFromDatabase(index: model.id);
             Navigator.of(context).pushNamed("/edit");
           },
           backgroundColor: Color(model.color),
-          foregroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Theme
+              .of(context)
+              .primaryColor,
           icon: Icons.edit,
           label: "Edit",
         ),
@@ -74,7 +90,9 @@ Widget taskContainer(
             MainCubit.get(context).deleteFromTable(id: model.id);
           },
           backgroundColor: Color(model.color),
-          foregroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Theme
+              .of(context)
+              .primaryColor,
           icon: Icons.delete,
           label: "Delete",
         ),
@@ -82,7 +100,9 @@ Widget taskContainer(
     ),
     child: IntrinsicHeight(
       child: Container(
-        color: Theme.of(context).primaryColor,
+        color: Theme
+            .of(context)
+            .primaryColor,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
@@ -107,7 +127,7 @@ Widget taskContainer(
                     Text(
                       tempModel[1].toUpperCase(),
                       style:
-                          TextStyle(color: Color(model.color), fontSize: 14.0),
+                      TextStyle(color: Color(model.color), fontSize: 14.0),
                     ),
                     const SizedBox(
                       height: 15.0,
@@ -186,14 +206,21 @@ Widget editCategoryContainer({
                 label,
                 style: TextStyle(
                     fontSize: 18.0,
-                    color: Theme.of(context).textTheme.headline3!.color),
+                    color: Theme
+                        .of(context)
+                        .textTheme
+                        .headline3!
+                        .color),
               ),
               Icon(
                 isSelected && selectedCategory == category
                     ? Icons.check_circle_outline_rounded
                     : null,
                 size: 25.0,
-                color: Theme.of(context).iconTheme.color,
+                color: Theme
+                    .of(context)
+                    .iconTheme
+                    .color,
               ),
             ],
           ),
@@ -230,14 +257,21 @@ Widget addCategoryContainer({
                 label,
                 style: TextStyle(
                     fontSize: 18.0,
-                    color: Theme.of(context).textTheme.headline3!.color),
+                    color: Theme
+                        .of(context)
+                        .textTheme
+                        .headline3!
+                        .color),
               ),
               Icon(
                 isSelected && selectedCategory == category
                     ? Icons.check_circle_outline_rounded
                     : null,
                 size: 25.0,
-                color: Theme.of(context).iconTheme.color,
+                color: Theme
+                    .of(context)
+                    .iconTheme
+                    .color,
               ),
             ],
           ),
@@ -251,3 +285,75 @@ Widget addCategoryContainer({
         onTap: onTap,
       ),
     );
+
+
+Widget gradientIcon(
+    {required IconData icon, double size = 25, required Gradient gradient }) {
+  return ShaderMask(
+    child: Icon(
+      icon,
+      size: size,
+      color: Colors.white,
+    ),
+    shaderCallback: (Rect bounds) {
+      final Rect rect = Rect.fromLTRB(0, 0, size, size);
+      return gradient.createShader(rect);
+    },
+  );
+}
+Gradient gradientButton()=>LinearGradient(
+  colors: [
+    Colors.red[400]!,
+    Colors.red[300]!,
+    Colors.yellow[300]!,
+    Colors.yellow[400]!,
+  ],
+  // begin: Alignment.bottomLeft,
+  // end: Alignment.topRight ,
+  begin: const FractionalOffset(0.0, 1.0),
+  end: const FractionalOffset(1.0, 0.0),
+  stops: [0, 0, 1, 1],
+  tileMode: TileMode.clamp,
+);
+
+
+Widget waves() {
+  return WaveWidget(
+    config: CustomConfig(
+      gradients: [
+        [
+          Colors.red[400]!,
+          Colors.yellow[400]!,
+
+          // Colors.green[200]!,
+        ],
+        [
+          Colors.red[400]!,
+          Colors.yellow[400]!,
+          // Colors.green[200]!,
+        ],
+        [
+          Colors.red[400]!,
+          Colors.yellow[400]!,
+          // Colors.green[200]!,
+        ],
+        [
+          Colors.red[400]!,
+          Colors.yellow[400]!,
+        ],
+      ],
+      gradientBegin: Alignment.bottomLeft,
+      gradientEnd: Alignment.topRight,
+      durations: [18000, 8000, 5000, 12000],
+      heightPercentages: [
+        0.10,
+        0.20,
+        0.30,
+        0.40
+      ],
+    ),
+    size:
+    Size(double.infinity, double.infinity),
+    waveAmplitude: 0,
+  );
+}

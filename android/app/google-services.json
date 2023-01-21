@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1004024843978",
+    "project_id": "do-it-simply",
+    "storage_bucket": "do-it-simply.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004024843978:android:1d1711160f70803ad26e33",
+        "android_client_info": {
+          "package_name": "com.my_to_do_app.to_do_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1004024843978-7b9ej7n58trhth31le3ssna26a4h5mba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.my_to_do_app.to_do_app",
+            "certificate_hash": "a07d8a95785017c0a481b5a1ea9ad91fc191065a"
+          }
+        },
+        {
+          "client_id": "1004024843978-ot6k5o5fhu1vqulgfbqshfvs8gkp53jo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_L6TEtOf2GkFib78vqG16Do-9so3_e_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1004024843978-ot6k5o5fhu1vqulgfbqshfvs8gkp53jo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

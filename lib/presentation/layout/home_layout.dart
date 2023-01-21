@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/logic/cubit/main_cubit/main_cubit.dart';
 import 'package:to_do_app/presentation/layout/sidebar_menu/sidebar.dart';
+import 'package:to_do_app/shared/components/components.dart';
 import 'package:to_do_app/shared/components/responsive.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 import '../../shared/components/constants.dart';
 import '../styles/colors.dart';
 
@@ -42,19 +45,19 @@ class _HomeLayoutState extends State<HomeLayout> {
             appBar: AppBar(
               centerTitle: true,
               toolbarHeight: 90.0,
-              leadingWidth: responsiveScreen.width*.146,
+              leadingWidth: responsiveScreen.width * .146,
               // TODO: Add the firebase Picture
               leading: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pushNamed('/profile');
                   },
                   // TODO: Go back to make it change if there is profile pic in the account
                   child: CircleAvatar(
                     radius: 30,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30),
                         child: Image.asset(
                             "assets/profilePic/profile_icon_white.png",
                             scale: 10)),
@@ -86,7 +89,154 @@ class _HomeLayoutState extends State<HomeLayout> {
             /* -----------------------------------------
        -------------- Body Section -------------
        -----------------------------------------*/
-            body: screens[mainCubit.currentIndex],
+            body: (allTasks.length == 0 && mainCubit.currentIndex == 0) ||
+                    (doneTasks.length == 0 && mainCubit.currentIndex == 1)
+                ? Center(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: Opacity(
+                                opacity: 0.6,
+                                child: SizedBox(
+                                    height: responsiveScreen.height * .20,
+                                    child: waves()),
+                              ),
+                            ),
+                            Flexible(
+                              child: Opacity(
+                                opacity: 0.6,
+                                child: SizedBox(
+                                  height: responsiveScreen.height * .20,
+                                  child: RotatedBox(
+                                    quarterTurns: 2,
+                                    child: Transform.scale(
+                                      scaleX: -1,
+                                      child: waves(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          mainCubit.currentIndex == 0
+                              ? "No tasks\nClick '+' to add a task."
+                              : "No tasks Completed.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        // Transform.scale(
+                        //   scaleX: -1,
+                        //   child: Column(
+                        //     children: [
+                        //       SizedBox(
+                        //         height: responsiveScreen.height * .10,
+                        //         child: Opacity(
+                        //           opacity: 0.6,
+                        //           child: WaveWidget(
+                        //             config: CustomConfig(
+                        //               gradients: [
+                        //                 [
+                        //                   Colors.red[400]!,
+                        //                   Colors.yellow[400]!,
+                        //
+                        //                   // Colors.green[200]!,
+                        //                 ],
+                        //                 [
+                        //                   Colors.red[400]!,
+                        //                   Colors.yellow[400]!,
+                        //                   // Colors.green[200]!,
+                        //                 ],
+                        //                 [
+                        //                   Colors.red[400]!,
+                        //                   Colors.yellow[400]!,
+                        //                   // Colors.green[200]!,
+                        //                 ],
+                        //                 [
+                        //                   Colors.red[400]!,
+                        //                   Colors.yellow[400]!,
+                        //                 ],
+                        //               ],
+                        //               gradientBegin: Alignment.bottomLeft,
+                        //               gradientEnd: Alignment.topRight,
+                        //               durations: [18000, 8000, 5000, 12000],
+                        //               heightPercentages: [
+                        //                 0.10,
+                        //                 0.20,
+                        //                 0.30,
+                        //                 0.40
+                        //               ],
+                        //             ),
+                        //             size: Size(double.infinity,
+                        //                 double.infinity),
+                        //             waveAmplitude: 0,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //       SizedBox(
+                        //         height: responsiveScreen.height * .10,
+                        //         child: RotatedBox(
+                        //           quarterTurns: 2,
+                        //           child: Opacity(
+                        //             opacity: 0.6,
+                        //             child: Transform.scale(
+                        //               scaleX: -1,
+                        //               child: WaveWidget(
+                        //                 config: CustomConfig(
+                        //                   gradients: [
+                        //                     [
+                        //                       Colors.red[400]!,
+                        //                       Colors.yellow[400]!,
+                        //                     ],
+                        //                     [
+                        //                       Colors.red[400]!,
+                        //                       Colors.yellow[400]!,
+                        //                       // Colors.green[200]!,
+                        //                     ],
+                        //                     [
+                        //                       Colors.red[400]!,
+                        //                       Colors.yellow[400]!,
+                        //                       // Colors.green[200]!,
+                        //                     ],
+                        //                     [
+                        //                       Colors.red[400]!,
+                        //                       Colors.yellow[400]!,
+                        //                     ],
+                        //                   ],
+                        //                   gradientBegin: Alignment.bottomLeft,
+                        //                   gradientEnd: Alignment.topRight,
+                        //                   durations: [18000, 8000, 5000, 12000],
+                        //                   heightPercentages: [
+                        //                     0.10,
+                        //                     0.20,
+                        //                     0.30,
+                        //                     0.40
+                        //                   ],
+                        //                 ),
+                        //                 size: Size(double.infinity,
+                        //                     double.infinity),
+                        //                 waveAmplitude: 0,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  )
+                : screens[mainCubit.currentIndex],
             // -------------- Floating Section -------------
             floatingActionButton: SizedBox(
               width: 65.0,
@@ -103,10 +253,10 @@ class _HomeLayoutState extends State<HomeLayout> {
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: LinearGradient(
-                        colors: [Colors.deepPurple, Colors.greenAccent],
+                        colors: [Color(0xffce93d8), Color(0xffffee58)],
                         begin: FractionalOffset(0.0, 1.0),
                         end: FractionalOffset(1.0, 0.0),
-                        stops: [0.0, 1.0],
+                        stops: [0.0, 7.0],
                         tileMode: TileMode.clamp,
                       ),
                     ),
@@ -129,39 +279,77 @@ class _HomeLayoutState extends State<HomeLayout> {
               child: BottomNavigationBar(
                 // backgroundColor: dark,
                 unselectedItemColor: offWhite,
+                selectedItemColor: offWhite,
                 type: BottomNavigationBarType.fixed,
                 currentIndex: mainCubit.currentIndex,
                 onTap: (index) => mainCubit.changeScreen(index),
                 items: [
+                  // TODO: change active icons color
                   BottomNavigationBarItem(
-                      activeIcon: ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return const LinearGradient(
-                            colors: [Colors.deepPurple, Colors.greenAccent],
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.topRight,
-                            stops: [0.0, 4.0],
-                            tileMode: TileMode.clamp,
-                          ).createShader(bounds);
-                        },
-                        child: Icon(Icons.home_rounded),
-                      ),
-                      icon: Icon(mainCubit.isHome
+                    backgroundColor: Colors.transparent,
+                    activeIcon: gradientIcon(
+                      icon: mainCubit.isHome
                           ? Icons.home_rounded
-                          : Icons.home_outlined),
-                      label: "Home"),
+                          : Icons.home_outlined,
+                      gradient: LinearGradient(
+                        colors: [Color(0xffce93d8), Color(0xffffee58)],
+                        begin: FractionalOffset(0.0, 1.0),
+                        end: FractionalOffset(1.0, 0.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.repeated,
+                      ),
+                    ),
+                    // Ink(
+                    //   decoration: const BoxDecoration(
+                    //     shape: BoxShape.circle,
+                    //     gradient: LinearGradient(
+                    //       colors: [Color(0xffce93d8), Color(0xffffee58)],
+                    //       begin: FractionalOffset(0.0, 1.0),
+                    //       end: FractionalOffset(1.0, 0.0),
+                    //       stops: [0.0, 7.0],
+                    //       tileMode: TileMode.clamp,
+                    //     ),
+                    //   ),
+                    //   child: Icon(
+                    //     mainCubit.isHome
+                    //         ? Icons.home_rounded
+                    //         : Icons.home_outlined,
+                    //     // size: 26,
+                    //     color: Colors.white,
+                    //   ),
+                    // ),
+                    // ShaderMask(
+                    //   shaderCallback: (Rect bounds) {
+                    //     return const LinearGradient(
+                    //       colors: [Color(0xffce93d8), Color(0xffffee58)],
+                    //       begin: Alignment.topCenter,
+                    //       end: Alignment.bottomCenter,
+                    //       tileMode: TileMode.clamp,
+                    //     ).createShader(bounds);
+                    //   },
+                    //   child:
+                    // ),
+                    icon: Icon(
+                      mainCubit.isHome
+                          ? Icons.home_rounded
+                          : Icons.home_outlined,
+                      color: Colors.white,
+                    ),
+                    label: "Home",
+                  ),
                   BottomNavigationBarItem(
-                      activeIcon: ShaderMask(
-                          shaderCallback: (Rect bounds) {
-                            return const LinearGradient(
-                              colors: [Colors.deepPurple, Colors.greenAccent],
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              stops: [0.0, 4.0],
-                              tileMode: TileMode.clamp,
-                            ).createShader(bounds);
-                          },
-                          child: const Icon(Icons.check_circle_rounded)),
+                      activeIcon: gradientIcon(
+                        icon: mainCubit.isHome
+                            ? Icons.check_circle_outline_rounded
+                            : Icons.check_circle_rounded,
+                        gradient: LinearGradient(
+                          colors: [Color(0xffce93d8), Color(0xffffee58)],
+                          begin: FractionalOffset(0.0, 1.0),
+                          end: FractionalOffset(1.0, 0.0),
+                          stops: [0.0, 1.0],
+                          tileMode: TileMode.repeated,
+                        ),
+                      ),
                       icon: Icon(mainCubit.isHome
                           ? Icons.check_circle_outline_rounded
                           : Icons.check_circle_rounded),

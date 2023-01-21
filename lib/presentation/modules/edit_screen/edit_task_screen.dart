@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:to_do_app/logic/cubit/main_cubit/main_cubit.dart';
 import 'package:to_do_app/shared/components/constants.dart';
 import '../../../shared/components/components.dart';
+import '../../../shared/components/responsive.dart';
 import '../../styles/colors.dart';
 
 class EditTaskScreen extends StatelessWidget {
@@ -36,6 +37,7 @@ class EditTaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveScreen responsiveScreen = ResponsiveScreen(context);
     return BlocConsumer<MainCubit, MainState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -88,6 +90,7 @@ class EditTaskScreen extends StatelessWidget {
                           }
                           return null;
                         },
+                        prefix: Icons.title_outlined,
                         label: 'Title',
                       ),
                       const SizedBox(
@@ -113,6 +116,7 @@ class EditTaskScreen extends StatelessWidget {
                             timeController.text = value!.format(context);
                           });
                         },
+                        prefix: Icons.access_time_outlined,
                         label: 'Time',
                       ),
                       const SizedBox(
@@ -193,6 +197,7 @@ class EditTaskScreen extends StatelessWidget {
                                 DateFormat.yMMMd().format(value!);
                           });
                         },
+                        prefix: Icons.date_range_outlined,
                         label: 'Date',
                       ),
                     ],
@@ -290,6 +295,9 @@ class EditTaskScreen extends StatelessWidget {
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.center,
                   ),
+                  SizedBox(
+                    height: responsiveScreen.height * .08,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                     child: GestureDetector(
@@ -305,16 +313,9 @@ class EditTaskScreen extends StatelessWidget {
                               ),
                             )),
                         decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Colors.deepPurple, Colors.greenAccent],
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              // begin: const FractionalOffset(0.0, 1.0),
-                              // end: const FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 5.0],
-                              tileMode: TileMode.clamp,
-                            ),
-                            borderRadius: BorderRadius.circular(20)),
+                            gradient: gradientButton(),
+                          borderRadius: BorderRadius.circular(20)
+                        ),
                       ),
                       onTap: () async {
                         mainCubit.updateDatabase(

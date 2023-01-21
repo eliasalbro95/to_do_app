@@ -1,14 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/logic/cubit/login_signup/login_and_signup_cubit.dart';
 import 'package:to_do_app/logic/cubit/main_cubit/main_cubit.dart';
 import 'package:to_do_app/logic/cubit/theme/theme_cubit.dart';
 import 'package:to_do_app/presentation/router/app_router.dart';
 import 'package:to_do_app/presentation/styles/theme/app_themes.dart';
 import 'package:to_do_app/shared/bloc_observer.dart';
+import 'package:to_do_app/shared/network/local/shared_preferences.dart';
 
-void main() {
-  BlocOverrides.runZoned(
-    () {
+Future<void> main() async {
+  await BlocOverrides.runZoned(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
+      await CacheHelper.init();
       runApp(MyApp(
         appRouter: AppRouter(),
       ));
@@ -30,6 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ThemeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LoginAndSignupCubit(),
         ),
       ],
       child: TodoMaterial(),
